@@ -5,6 +5,7 @@ local.properties
 .idea/
 *.iml
 *.apk
+dist/
 pc-tester/local-settings.json
 pc-tester/volcengine.local.json
 harmony-compat/pc-tester/local-settings.json
