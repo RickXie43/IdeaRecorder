@@ -1,0 +1,5 @@
+{
+  "appId": "在这里填写火山引擎语音合成 App ID",
+  "accessToken": "在这里填写火山引擎 Access Token",
+  "voiceType": "saturn_zh_female_keainvsheng_tob"
+}

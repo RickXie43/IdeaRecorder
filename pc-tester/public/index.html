@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Idea Recorder · 通话式语音测试</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">IDEA RECORDER / VOICE LAB</p>
+        <h1>像打电话一样聊想法</h1>
+        <p class="intro">独立 WebUI 测试：浏览器内置中文识别 + DeepSeek-V4-Flash + AI 音频朗读。不会改动 Android App。</p>
+      </header>
+
+      <section class="panel settings">
+        <div class="section-heading"><label for="apiKey">DeepSeek API Key</label><button id="saveSettings" class="text-button" type="button">保存到本机</button></div>
+        <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-…">
+        <p class="hint">Key 保存在本机 <code>local-settings.json</code>，不会上传到浏览器存储或日志。</p>
+        <div class="tts-settings"><label for="volcAppId">火山引擎 App ID</label><input id="volcAppId" type="text" autocomplete="off" placeholder="控制台创建应用后获取"><div class="tts-inline"><input id="volcAccessToken" type="password" autocomplete="off" placeholder="Access Token"><input id="volcVoiceType" type="text" value="saturn_zh_female_keainvsheng_tob" placeholder="Voice Type"></div><p class="hint">使用火山引擎豆包语音生成 MP3。默认女声音色：saturn_zh_female_keainvsheng_tob。凭据仅保存到本机。</p></div>
+        <div class="model-row"><span>对话模型</span><span class="model-pill">deepseek-v4-flash · 联网</span><span class="voice-note">女声优先 · 持续监听 · 可被打断</span></div>
+      </section>
+
+      <section class="call-panel panel">
+        <div class="call-top"><div><span class="live-dot"></span><span id="callState">准备开始</span></div><button id="clearChat" class="text-button" type="button">清空对话</button></div>
+        <div id="conversation" class="conversation"><div class="empty-call">点下面的麦克风，开始说话<br><span>建议使用 Chrome 或 Edge，并允许麦克风权限</span></div></div>
+        <div id="transcript" class="transcript" aria-live="polite"></div>
+        <div class="call-actions"><button id="micButton" class="mic-button" type="button" aria-label="开始说话"><span class="mic-icon">●</span><span id="micLabel">开始说话</span></button><button id="stopSpeaking" class="secondary-button" type="button">停止朗读</button></div>
+        <div id="textFallback" class="text-fallback hidden"><p>当前浏览器的语音识别服务不可用，可以先输入文字继续测试：</p><div class="fallback-row"><input id="fallbackInput" type="text" placeholder="输入你想说的话…"><button id="fallbackSend" class="secondary-button" type="button">发送</button></div></div>
+        <p class="hint voice-hint">体验定位：自然、短句、主动追问的通话式对话。语音由配置的 TTS 服务生成，不使用浏览器音色。</p>
+      </section>
+
+      <details class="text-lab">
+        <summary>展开文字整理测试（原有功能）</summary>
+      <section class="grid">
+        <div class="panel">
+          <div class="section-heading"><label for="projects">已有项目</label><button id="fillProjects" class="text-button" type="button">填入示例</button></div>
+          <textarea id="projects" rows="10" spellcheck="false" placeholder="每行一个项目：&#10;Idea Recorder项目 | 离线语音记录与 AI 整理工具&#10;官网改版 | 品牌官网的设计与功能优化"></textarea>
+          <p class="hint">项目名称必填；竖线后可填写项目描述。描述会帮助模型判断归属。</p>
+        </div>
+        <div class="panel">
+          <div class="section-heading"><label for="ideaText">凌乱想法</label><button id="fillIdea" class="text-button" type="button">填入示例</button></div>
+          <textarea id="ideaText" rows="10" placeholder="输入或粘贴一段可能包含多个项目、多个想法的文字…"></textarea>
+          <p class="hint">无法对应已有项目的内容会统一归入“日常”；若项目列表未填写“日常”，测试器会自动加入它。</p>
+        </div>
+      </section>
+      </details>
+
+      <div class="actions">
+        <button id="organize" class="primary" type="button">开始整理</button>
+        <span id="status" role="status"></span>
+      </div>
+
+      <section id="resultPanel" class="panel result hidden">
+        <div class="section-heading"><h2>整理结果</h2><button id="copyJson" class="text-button" type="button">复制 JSON</button></div>
+        <div id="summary" class="summary"></div>
+        <div id="readableResult" class="readable-result"></div>
+        <details>
+          <summary>查看原始 JSON</summary>
+          <pre id="jsonResult"></pre>
+        </details>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
